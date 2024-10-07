@@ -24,15 +24,15 @@ async def get_all_kittens(session: AsyncSession = Depends(get_session)) -> List[
 
 
 @router.get("/breed_id")
-async def get_cats_by_breed(breed_id: Annotated[SBreedId, Depends()],
-                            session: AsyncSession = Depends(get_session)) -> List[SKitten]:
+async def get_kitten_by_breed(breed_id: Annotated[SBreedId, Depends()],
+                              session: AsyncSession = Depends(get_session)) -> List[SKitten]:
     kittens = await KittenRepository.get_kittens_by_breed(breed_id, session)
     return kittens
 
 
 @router.get("/kitten_id")
-async def get_cat_details(kitten_id: Annotated[SKittenId, Depends()],
-                          session: AsyncSession = Depends(get_session)) -> List[SKitten]:
+async def get_kittens_details(kitten_id: Annotated[SKittenId, Depends()],
+                              session: AsyncSession = Depends(get_session)) -> List[SKitten]:
     kittens = await KittenRepository.get_kittens_by_id(kitten_id, session)
     return kittens
 
@@ -53,7 +53,7 @@ async def add_kitten_description(kitten_id: Annotated[SKittenId, Depends()], des
     raise HTTPException(status_code=404, detail="Kitten not found")
 
 
-@router.put("/update_data")
+@router.put("")
 async def update_kitten(kitten_id: Annotated[SKittenId, Depends()], updated_data: Annotated[SKittenUpdate, Depends()],
                         session: AsyncSession = Depends(get_session)) -> SKittenId:
     updated_kitten = await KittenRepository.update_kitten_data(kitten_id, updated_data, session)
@@ -62,7 +62,7 @@ async def update_kitten(kitten_id: Annotated[SKittenId, Depends()], updated_data
     raise HTTPException(status_code=500, detail="Internal server error")
 
 
-@router.delete("/kitten_id")
+@router.delete("")
 async def delete_kitten(kitten_id: Annotated[SKittenId, Depends()],
                         session: AsyncSession = Depends(get_session)) -> SKittenId:
     deleted_kitten_id = await KittenRepository.delete_kitten(kitten_id, session)

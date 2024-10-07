@@ -11,6 +11,6 @@ RUN poetry config virtualenvs.create false \
 
 COPY . .
 
-EXPOSE 8501
+EXPOSE 8080
 
-CMD ["streamlit", "run", "app.py"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]

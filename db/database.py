@@ -1,7 +1,7 @@
 import os
 from sqlalchemy import ForeignKey
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy.orm import declarative_base, Mapped, mapped_column, relationship, sessionmaker
+from sqlalchemy.orm import declarative_base, Mapped, mapped_column, sessionmaker
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 engine = create_async_engine(DATABASE_URL, echo=True)
@@ -16,7 +16,6 @@ class BreedOrm(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     name: Mapped[str] = mapped_column(unique=True, nullable=False)
-    kittens: Mapped[list['KittenOrm']] = relationship('KittenOrm', back_populates='breed')
 
 
 class KittenOrm(Base):
@@ -28,4 +27,8 @@ class KittenOrm(Base):
     color: Mapped[str] = mapped_column(nullable=False)
     age_in_months: Mapped[int] = mapped_column(nullable=False)
     description: Mapped[str] = mapped_column(nullable=False)
-    breed: Mapped['BreedOrm'] = relationship('BreedOrm', back_populates='kittens')
+
+
+async def create_tables():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)

@@ -36,5 +36,5 @@
 - docker-compose up --build
 
 ## Документация в формате Swagger:
-[CatApi Doc](http://localhost:80/docs)</br>
-[FastAPI - Swagger UI (PDF)](https://github.com/fatmaann/CatApi/blob/main/FastAPI%20-%20Swagger%20UI.pdf)
+[CatApi Swagger UI](http://localhost:80/docs)</br>
+[CatApi Swagger (PDF)](https://github.com/fatmaann/CatApi/blob/main/FastAPI%20-%20Swagger%20UI.pdf)
